@@ -9,14 +9,17 @@ cd ${directory}
 
 ## Build number
 declare -i i
-svn revert ${source}/kernel/.build
+cd ${source}
+hg revert kernel/.build
+cd -
 i=`cat ${source}/kernel/.build`
 echo $((${i} + 1)) > ${source}'/kernel/.build'
 
 ## Export
 exported=${tmpExportPath}'/build'
 echo 'Extracting repository'
-svn export ${source} ${exported} > /dev/null
+cp -r ${source} ${exported} > /dev/null
+rm -rf ${exported}/.hg
 cd ${exported} && exported=`pwd` && cd ${directory}
 
 ## Deleting all the files which are useless
@@ -30,22 +33,19 @@ rm -rf ${exported}'/templates/base2'
 rm -rf ${exported}'/templates/theme1'
 rm -rf ${exported}'/templates/vz3'
 rm -rf ${exported}'/templates/phpboost'
-rm -rf ${exported}'/templates/extends'
-rm -rf ${exported}'/templates/publishing'
 chmod -R 777 ${exported}'/cache' ${exported}'/upload' ${exported}'/download/'
 touch $exported/.htaccess
 
 ## Generating the documentation before optimizing the files
 echo 'Generating documentation'
 here=`dirname $0` && cd $here && here=`pwd` && cd ${exported}
-toolsDir=$here
-$here/doc.sh ${here}/../phpdoc ${exported} > /dev/null
+toolsDir=$here/../../bin
+$here/doc.sh ${toolsDir}/phpdoc ${exported} > /dev/null
 
 ## Optimization
 echo 'Optimizing kernel code'
 mkdir ${exported}'/optimized-kernel'
-jar_path=${toolsDir}/../POptimizer
-java -jar ${jar_path}/poptimizer.jar -i ${exported}/kernel -o ${exported}/optimized-kernel -e framework/lib/ framework/content/geshi/ framework/content/math/ -ics ISO-8859-1 -ocs ISO-8859-1
+java -jar ${toolsDir}/poptimizer.jar -i ${exported}/kernel -o ${exported}/optimized-kernel -e framework/lib/ framework/content/geshi/ framework/content/math/ -ics ISO-8859-1 -ocs ISO-8859-1
 
 # Publication
 echo 'Exporting publication distribution'
@@ -56,7 +56,6 @@ rm -rf calendar download faq forum gallery media newsletter online poll shoutbox
 rm -rf menus/themeswitcher
 rm -rf templates/base
 rm -rf kernel && mv optimized-kernel kernel
-svn export ${source}/templates/publishing templates/publishing > /dev/null
 cd install/distribution && rm -f community.png distribution_french.php distribution_community_english.php distribution_community_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php distribution_full_french.php distribution_full_english.php
 mv distribution_publication_french.php distribution_french.php
 mv distribution_publication_english.php distribution_english.php
@@ -76,7 +75,6 @@ cp -R ${exported}/* ${com_dir}
 cd ${com_dir}
 rm -rf calendar media newsletter stats gallery doc
 rm -rf menus/themeswitcher
-svn export ${source}/templates/extends templates/extends > /dev/null
 rm -rf templates/base
 rm -rf kernel && mv optimized-kernel kernel
 cd install/distribution && rm -f publication.png distribution_french.php distribution_publication_english.php distribution_publication_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php distribution_full_french.php distribution_full_english.php
@@ -96,7 +94,6 @@ echo 'Exporting PDK distribution'
 pdk_dir=${exported}/../pdk && mkdir ${pdk_dir} && cd ${pdk_dir} && pdk_dir=`pwd` && cd ${directory}
 cp -R ${exported}/* ${pdk_dir}
 cd ${pdk_dir}
-svn export ${source}/templates/extends templates/extends > /dev/null
 rm -rf optimized-kernel
 rm -rf faq forum guestbook news pages search wiki articles contact download gallery menus/themeswitcher online poll shoutbox web newsletter media stats calendar
 mkdir doc/3.0
