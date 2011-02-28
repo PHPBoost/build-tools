@@ -39,8 +39,7 @@ touch $exported/.htaccess
 ## Generating the documentation before optimizing the files
 echo 'Generating documentation'
 here=`dirname $0` && cd $here && here=`pwd` && cd ${exported}
-toolsDir=$here/../../bin
-$here/doc.sh ${toolsDir}/phpdoc ${exported} > /dev/null
+$here/doc.sh ${exported} > /dev/null
 
 ## Optimization
 echo 'Optimizing kernel code'

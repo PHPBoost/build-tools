@@ -1,19 +1,18 @@
 #!/bin/bash
 
+here=`pwd`
 tmpPath='/tmp/phpboost' && mkdir ${tmpPath} 2> /dev/null
 tmpDocPath=${tmpPath}'/doc' && rm -rf ${tmpDocPath} && mkdir ${tmpDocPath}
 
-cd ${1} && directory=`pwd`
-cd ${2} && source=`pwd` && cd ${directory}
+cd ${1} && source=`pwd` && cd - > /dev/null
 
 ##### Injecting package names #####
-
-source `dirname $0`/inject_packages.sh
+source ${here}/inject_packages.sh
 inject_packages $source/kernel/framework
 
 ##### Generating documentation #####
-path=`dirname $0`
-phpdoc=${path}/../phpdoc && cd ${phpdoc} && phpdoc=${directory}/phpdoc > /dev/null 2>&1
+phpdocDir="${here}"/../../bin/phpdoc
+phpdoc="php ${phpdocDir}/phpdoc > /dev/null 2>&1"
 
 ## Title of generated documentation, default is 'Generated Documentation'
 TITLE="PHPBoost Framework Documentation"
@@ -37,7 +36,7 @@ CONVERTER=Smarty
 TEMPLATE=phpboost
 
 # make documentation
-${phpdoc} -f "$PATH_PROJECT" -t "$PATH_DOCS" -ti "$TITLE" -dn "$PACKAGES" -ct "$CUSTOM_TAGS" -o "$OUTPUTFORMAT:$CONVERTER:$TEMPLATE" -p "$PEAR" -pp "$PRIVATE" -i "$IGNORE_PATH" -j on
+${phpdoc} -f "$PATH_PROJECT" -t "$PATH_DOCS" -ti "$TITLE" -dn "$PACKAGES" -ct "$CUSTOM_TAGS" -o "$OUTPUTFORMAT:$CONVERTER:$TEMPLATE" -p "$PEAR" -pp "$PRIVATE" -i "$IGNORE_PATH" -j on 
 
 function html2php()
 {
