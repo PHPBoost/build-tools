@@ -1,6 +1,7 @@
 #!/bin/bash
 
-here=`pwd`
+here=`dirname $0`
+cd $here && here=`pwd` && cd -
 tmpPath='/tmp/phpboost' && mkdir ${tmpPath} 2> /dev/null
 tmpDocPath=${tmpPath}'/doc' && rm -rf ${tmpDocPath} && mkdir ${tmpDocPath}
 
@@ -11,7 +12,7 @@ source ${here}/inject_packages.sh
 inject_packages $source/kernel/framework
 
 ##### Generating documentation #####
-phpdocDir="${here}"/../../bin/phpdoc
+phpdocDir=${here}/../../bin/phpdoc
 phpdoc="php ${phpdocDir}/phpdoc > /dev/null 2>&1"
 
 ## Title of generated documentation, default is 'Generated Documentation'

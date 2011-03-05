@@ -44,6 +44,7 @@ $here/doc.sh ${exported} > /dev/null
 ## Optimization
 echo 'Optimizing kernel code'
 mkdir ${exported}'/optimized-kernel'
+toolsDir=${directory}/../../bin/
 java -jar ${toolsDir}/poptimizer.jar -i ${exported}/kernel -o ${exported}/optimized-kernel -e framework/lib/ framework/content/geshi/ framework/content/math/ -ics ISO-8859-1 -ocs ISO-8859-1
 
 # Publication
@@ -55,7 +56,7 @@ rm -rf calendar download faq forum gallery media newsletter online poll shoutbox
 rm -rf menus/themeswitcher
 rm -rf templates/base
 rm -rf kernel && mv optimized-kernel kernel
-cd install/distribution && rm -f community.png distribution_french.php distribution_community_english.php distribution_community_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php distribution_full_french.php distribution_full_english.php
+cd install/distribution && rm -f community.png distribution_french.php distribution_community_english.php distribution_community_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php
 mv distribution_publication_french.php distribution_french.php
 mv distribution_publication_english.php distribution_english.php
 cd ../../
@@ -76,7 +77,7 @@ rm -rf calendar media newsletter stats gallery doc
 rm -rf menus/themeswitcher
 rm -rf templates/base
 rm -rf kernel && mv optimized-kernel kernel
-cd install/distribution && rm -f publication.png distribution_french.php distribution_publication_english.php distribution_publication_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php distribution_full_french.php distribution_full_english.php
+cd install/distribution && rm -f publication.png distribution_french.php distribution_publication_english.php distribution_publication_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php
 mv distribution_community_french.php distribution_french.php
 mv distribution_community_english.php distribution_english.php
 cd ../../
@@ -97,7 +98,7 @@ rm -rf optimized-kernel
 rm -rf faq forum guestbook news pages search wiki articles contact download gallery menus/themeswitcher online poll shoutbox web newsletter media stats calendar
 mkdir doc/3.0
 cp -R /tmp/phpboost/doc/* doc/3.0
-cd install/distribution && rm -f publication.png community.png distribution_french.php distribution_publication_english.php distribution_publication_french.php distribution_english.php distribution_community_english.php distribution_community_french.php distribution_full_french.php distribution_full_english.php
+cd install/distribution && rm -f publication.png community.png distribution_french.php distribution_publication_english.php distribution_publication_french.php distribution_english.php distribution_community_english.php distribution_community_french.php
 mv distribution_pdk_french.php distribution_french.php
 mv distribution_pdk_english.php distribution_english.php
 cd ../../
@@ -116,9 +117,7 @@ cp -R ${exported}/* ${full_dir}
 cd ${full_dir}
 rm -rf kernel && mv optimized-kernel kernel
 rm -rf doc
-cd install/distribution && rm -f publication.png community.png distribution_publication_english.php distribution_publication_french.php distribution_community_english.php distribution_community_french.php distribution_pdk_english.php distribution_pdk_french.php distribution_french.php distribution_english.php
-mv distribution_full_french.php distribution_french.php
-mv distribution_full_english.php distribution_english.php
+cd install/distribution && rm -f publication.png community.png distribution_publication_english.php distribution_publication_french.php distribution_community_english.php distribution_community_french.php distribution_pdk_english.php distribution_pdk_french.php
 cd ../../
 ln -s ${full_dir} ../phpboost
 cd ../
