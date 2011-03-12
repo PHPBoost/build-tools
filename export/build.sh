@@ -29,10 +29,12 @@ rm -rf ${exported}'/test'
 rm -rf ${exported}'/todo.txt'
 rm -rf ${exported}'/changelog.txt'
 rm -rf ${exported}'/update'
+mr -rf ${exported}'/sitemap'
 rm -rf ${exported}'/templates/base2'
 rm -rf ${exported}'/templates/theme1'
 rm -rf ${exported}'/templates/vz3'
 rm -rf ${exported}'/templates/phpboost'
+mkdir ${exported}'/upload' ${exported}'/cache/tpl' ${exported}'/cache/syndication' ${exported}'/connect/db' ${exported}'/database/db' ${exported}'/images/avatar' ${exported}'/images/maths'
 chmod -R 777 ${exported}'/cache' ${exported}'/upload' ${exported}'/download/'
 touch $exported/.htaccess
 
@@ -54,7 +56,7 @@ cp -R ${exported}/* ${pub_dir}
 cd ${pub_dir}
 rm -rf calendar download faq forum gallery media newsletter online poll shoutbox stats wiki doc
 rm -rf menus/themeswitcher
-rm -rf templates/base
+rm -rf templates/base templates/extends
 rm -rf kernel && mv optimized-kernel kernel
 cd install/distribution && rm -f community.png distribution_french.php distribution_community_english.php distribution_community_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php
 mv distribution_publication_french.php distribution_french.php
@@ -75,7 +77,7 @@ cp -R ${exported}/* ${com_dir}
 cd ${com_dir}
 rm -rf calendar media newsletter stats gallery doc
 rm -rf menus/themeswitcher
-rm -rf templates/base
+rm -rf templates/base templates/publishing
 rm -rf kernel && mv optimized-kernel kernel
 cd install/distribution && rm -f publication.png distribution_french.php distribution_publication_english.php distribution_publication_french.php distribution_english.php distribution_pdk_english.php distribution_pdk_french.php
 mv distribution_community_french.php distribution_french.php
@@ -96,6 +98,7 @@ cp -R ${exported}/* ${pdk_dir}
 cd ${pdk_dir}
 rm -rf optimized-kernel
 rm -rf faq forum guestbook news pages search wiki articles contact download gallery menus/themeswitcher online poll shoutbox web newsletter media stats calendar
+rm -rf templates/publishing
 mkdir doc/3.0
 cp -R /tmp/phpboost/doc/* doc/3.0
 cd install/distribution && rm -f publication.png community.png distribution_french.php distribution_publication_english.php distribution_publication_french.php distribution_english.php distribution_community_english.php distribution_community_french.php
@@ -115,6 +118,7 @@ echo 'Exporting full distribution'
 full_dir=${exported}/../full && mkdir ${full_dir} && cd ${full_dir} && full_dir=`pwd` && cd ${directory}
 cp -R ${exported}/* ${full_dir}
 cd ${full_dir}
+rm -rf templates/extends templates/publishing
 rm -rf kernel && mv optimized-kernel kernel
 rm -rf doc
 cd install/distribution && rm -f publication.png community.png distribution_publication_english.php distribution_publication_french.php distribution_community_english.php distribution_community_french.php distribution_pdk_english.php distribution_pdk_french.php
