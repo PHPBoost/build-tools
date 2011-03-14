@@ -40,14 +40,13 @@ touch $exported/.htaccess
 
 ## Generating the documentation before optimizing the files
 echo 'Generating documentation'
-here=`dirname $0` && cd $here && here=`pwd` && cd ${exported}
-$here/doc.sh ${exported} > /dev/null
+$directory/doc.sh ${exported} > /dev/null
 
 ## Optimization
 echo 'Optimizing kernel code'
 mkdir ${exported}'/optimized-kernel'
 toolsDir=${directory}/../../bin/
-java -jar ${toolsDir}/poptimizer.jar -i ${exported}/kernel -o ${exported}/optimized-kernel -e framework/lib/ framework/content/geshi/ framework/content/math/ -ics ISO-8859-1 -ocs ISO-8859-1
+java -jar ${toolsDir}poptimizer.jar -i ${exported}/kernel -o ${exported}/optimized-kernel -e framework/lib/ framework/content/geshi/ framework/content/math/ -ics ISO-8859-1 -ocs ISO-8859-1
 
 # Publication
 echo 'Exporting publication distribution'
