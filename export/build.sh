@@ -1,5 +1,5 @@
 #!/bin/bash
-directory=`pwd`
+cd `dirname $0` && directory=`pwd` && cd -
 tmpPath='/tmp/phpboost' && mkdir ${tmpPath} 2> /dev/null
 tmpExportPath=${tmpPath}'/export' && rm -rf ${tmpExportPath} && mkdir ${tmpExportPath}
 
