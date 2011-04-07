@@ -11,6 +11,7 @@ cd ${directory}
 declare -i i
 cd ${source}
 hg revert kernel/.build
+rm -f kernel/.build.orig
 cd -
 i=`cat ${source}/kernel/.build`
 echo $((${i} + 1)) > ${source}'/kernel/.build'
