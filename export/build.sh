@@ -121,7 +121,7 @@ cd ${full_dir}
 rm -rf templates/extends templates/publishing
 rm -rf kernel && mv optimized-kernel kernel
 rm -rf doc
-cd install/distribution && rm -f publication.png community.png distribution_publication_english.php distribution_publication_french.php distribution_community_english.php distribution_community_french.php distribution_pdk_english.php distribution_pdk_french.php
+cd install/distribution && rm -f community.png distribution_publication_english.php distribution_publication_french.php distribution_community_english.php distribution_community_french.php distribution_pdk_english.php distribution_pdk_french.php
 cd ../../
 ln -s ${full_dir} ../phpboost
 cd ../
