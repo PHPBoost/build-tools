@@ -1,7 +1,7 @@
 #!/bin/bash
 
-Path='../../phpboost/'
-ExportPath='../build-tools/export/modules/'
+Path=$1
+ExportPath=$2
 
 cd $Path
 
