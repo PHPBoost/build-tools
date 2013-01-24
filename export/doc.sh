@@ -1,5 +1,6 @@
 #!/bin/bash
 
+currentDirectory=$(pwd)
 tmpPath='/tmp/phpboost' && mkdir ${tmpPath} 2> /dev/null
 tmpDocPath=${tmpPath}'/doc' && rm -rf ${tmpDocPath} && mkdir ${tmpDocPath}
 
@@ -8,7 +9,7 @@ cd ${2} && source=`pwd` && cd ${directory}
 
 ##### Injecting package names #####
 
-source `dirname $0`/inject_packages.sh
+source $currentDirectory/inject_packages.sh
 inject_packages $source/kernel/framework
 
 ##### Generating documentation #####
