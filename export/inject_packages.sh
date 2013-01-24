@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # $1 is the path of the root of the directory tree in which packages have to be injected. All subdirectories will be packages
 function inject_packages()
@@ -34,6 +34,7 @@ function inject_package()
 # $2 is the value of the {@package} variable
 function replace_package()
 {
+	echo replacing packages in $1 by $2
 	pattern="s/{@package}/"$2"/"
 	sed -i $pattern $1 
 }
@@ -64,6 +65,7 @@ function inject_subpackage()
 # $3 is the value of the @subpackage variable
 function replace_subpackage()
 {
+	echo replacing package in $1 by $2 and $3
 	sed -i 's#{@package}#'$2'\n * @subpackage '$3'#' $1
 }
 
