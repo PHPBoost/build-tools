@@ -5,6 +5,7 @@ Original='../../phpboost'
 
 OldTypeBuild='a'
 NewTypeBuild='a'
+build_version='a3'
 
 cp -r $Original/ $Export
 
@@ -24,14 +25,13 @@ rm -rf $Export'/sandbox'
 rm -rf $Export'/todo.txt'
 rm -rf $Export'/changelog.txt'
 rm -rf $Export'/update'
-rm -rf $Export'/templates/publishing'
-## rm -rf $Export'/templates/extends'
+rm -rf $Export'/templates/phpboost'
 
 echo 'delete useless folders success'
 
 ## Build version zip
-i=`grep -Eo "$OldTypeBuild([0-9]+)" $Export'/kernel/.build' | cut -f2 -d$NewTypeBuild`
-build_version=$NewTypeBuild$((${i} + 1))
+#i=`grep -Eo "$OldTypeBuild([0-9]+)" $Export'/kernel/.build' | cut -f2 -d$NewTypeBuild`
+#build_version=$NewTypeBuild$((${i} + 1))
 echo $build_version > $Export'/kernel/.build'
 
 echo 'incremente build version success'
