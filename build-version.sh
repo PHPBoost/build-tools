@@ -83,7 +83,7 @@ echo 'copying files'
 cp -r $Original/ $Build
 
 ## Nettoyage des dossiers
-rm -rf $Build'/.gitignore' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/update' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost'
+rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/update' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost'
 
 ## Htaccess
 touch $Build/.htaccess
