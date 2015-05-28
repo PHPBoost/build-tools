@@ -83,7 +83,7 @@ echo 'copying files'
 cp -r $Original/ $Build
 
 ## Nettoyage des dossiers
-rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/update' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost'
+rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/update' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
 
 ## Htaccess
 touch $Build/.htaccess
@@ -156,9 +156,11 @@ cd $scriptDir
 
 ## Export to zip
 mkdir -p $exportDir/phpboost
-zip -r $exportDir'/phpboost/phpboost.zip' $Build_full/ 1>/dev/null
-zip -r $exportDir'/phpboost/phpboost_pdk.zip' $Build_pdk/ 1>/dev/null
+cd $Build/
+zip -r $scriptDir/$exportDir/phpboost/phpboost.zip phpboost/ 1>/dev/null
+zip -r $scriptDir/$exportDir/phpboost/phpboost_pdk.zip phpboost_pdk/ 1>/dev/null
 
+cd $scriptDir
 rm -rf $Build
 unlink $Original
 rm -rf 0
