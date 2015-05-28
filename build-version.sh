@@ -156,7 +156,7 @@ cd $scriptDir
 
 ## Export to zip
 mkdir -p $exportDir/phpboost
-cd $Build/
+cd $buildsDir/
 zip -r $scriptDir/$exportDir/phpboost/phpboost.zip phpboost/ 1>/dev/null
 zip -r $scriptDir/$exportDir/phpboost/phpboost_pdk.zip phpboost_pdk/ 1>/dev/null
 
