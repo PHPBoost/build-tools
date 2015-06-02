@@ -84,6 +84,8 @@ cp -r $Original/ $Build
 
 ## Nettoyage des dossiers
 rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/update' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
+## Suppression des fichiers .empty
+find $Build -name '.empty' -exec rm -rf '{}' \;
 
 ## Htaccess
 touch $Build/.htaccess
