@@ -146,8 +146,6 @@ echo 'optimizing kernel'
 java -jar bin/poptimizer.jar -i $Build_full/kernel -o $Build_full/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_full'/kernel'
 mv $Build_full'/optimized-kernel' $Build_full'/kernel'
-# FIX Url encode_rewrite
-sed -i 's/���������������������������/àáâãäåçèéêëìíîïðòóôõöùúûüýÿ/' $Build_full/kernel/framework/util/Url.class.php
 
 rm -rf $Build_full'/install/distribution.ini'
 rm -rf $Build_full'/install/lang/french/distribution.php'
