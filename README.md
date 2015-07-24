@@ -10,6 +10,10 @@ Installer git, zip, unzip et java sur votre machine avant de commencer.
 
 Exécuter ./build-version.sh pour créer les fichiers zip (pour PHPBoost 4.1 par défaut si pas d'options)
 
+Possibilité de générer une version de test (exemple a1) :
+./build-version.sh -s <branche>
+Le script prend la dernière version du trunk pour créer l'archive
+
 Possibilité de spécifier la branche voulue :
 ./build-version.sh -b <branche>
 
@@ -20,4 +24,3 @@ Les différents fichiers zip sont placés dans le dossier export (les dossiers d
 ## TODO
 
 - Possibilité de taguer une nouvelle version automatiquement avec l'option -t
-- Possibilité de générer des versions sur le trunk pour alpha/beta/rc
