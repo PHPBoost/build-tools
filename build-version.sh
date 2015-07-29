@@ -143,7 +143,7 @@ rm -rf $Build_full'/bugtracker'
 rm -rf $Build_full'/doc'
 rm -rf $Build_full'/sandbox'
 echo 'optimizing kernel'
-java -jar bin/poptimizer.jar -i $Build_full/kernel -o $Build_full/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
+java -jar bin/poptimizer.jar -i $Build_full/kernel -o $Build_full/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_full'/kernel'
 mv $Build_full'/optimized-kernel' $Build_full'/kernel'
 
