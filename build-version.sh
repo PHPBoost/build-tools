@@ -57,6 +57,7 @@ scriptDir=$(pwd)
 buildsDir='builds/'
 Build=$buildsDir'/phpboost_cache'
 Build_full=$buildsDir'/phpboost'
+Build_update=$buildsDir'/phpboost_update'
 Build_pdk=$buildsDir'/phpboost_pdk'
 exportDir='export'/$Branch
 Original='phpboost'
@@ -119,7 +120,7 @@ echo 'copying files'
 cp -r $Original/ $Build
 
 ## Nettoyage des dossiers
-rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/update' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
+rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
 
 ## Suppression des fichiers .empty
 find $Build -name '.empty' -exec rm -f '{}' \;
@@ -142,6 +143,8 @@ cp -r $Build/ $Build_full
 rm -rf $Build_full'/bugtracker'
 rm -rf $Build_full'/doc'
 rm -rf $Build_full'/sandbox'
+rm -rf $Build_full'/update'
+rm -rf $Build_full'/UrlUpdater'
 echo 'optimizing kernel'
 java -jar bin/poptimizer.jar -i $Build_full/kernel -o $Build_full/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_full'/kernel'
@@ -155,6 +158,21 @@ mv $Build_full'/install/distribution/distribution_full_french.php' $Build_full'/
 mv $Build_full'/install/distribution/distribution_full_english.php' $Build_full'/install/lang/english/distribution.php'
 rm -rf $Build_full'/install/distribution/'
 
+################################ Update pack ######################################
+
+echo 'building Update pack'
+rm -rf $Build_update
+cp -r $Build/ $Build_update
+rm -rf $Build_update'/bugtracker'
+rm -rf $Build_update'/doc'
+rm -rf $Build_update'/install'
+rm -rf $Build_update'/sandbox'
+rm -rf $Build_update'/.htaccess'
+echo 'optimizing kernel'
+java -jar bin/poptimizer.jar -i $Build_update/kernel -o $Build_update/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
+rm -rf $Build_update'/kernel'
+mv $Build_update'/optimized-kernel' $Build_update'/kernel'
+
 ################################ PDK pack ######################################
 
 if [ $sflag != 1 ] ;
@@ -162,7 +180,7 @@ then
 	echo 'building PDK pack'
 	rm -rf $Build_pdk
 	cp -r $Build/ $Build_pdk
-	rm -rf $Build_pdk'/articles' $Build_pdk'/calendar' $Build_pdk'/contact' $Build_pdk'/online' $Build_pdk'/shoutbox' $Build_pdk'/faq' $Build_pdk'/forum' $Build_pdk'/gallery' $Build_pdk'/web' $Build_pdk'/guestbook' $Build_pdk'/ThemesSwitcher' $Build_pdk'/LangsSwitcher' $Build_pdk'/media' $Build_pdk'/news' $Build_pdk'/newsletter' $Build_pdk'/pages' $Build_pdk'/customization' $Build_pdk'/sitemap' $Build_pdk'/search' $Build_pdk'/poll' $Build_pdk'/stats' $Build_pdk'/download' $Build_pdk'/wiki'
+	rm -rf $Build_pdk'/articles' $Build_pdk'/calendar' $Build_pdk'/contact' $Build_pdk'/download' $Build_pdk'/faq' $Build_pdk'/forum' $Build_pdk'/gallery' $Build_pdk'/online' $Build_pdk'/shoutbox' $Build_pdk'/guestbook' $Build_pdk'/ThemesSwitcher' $Build_pdk'/LangsSwitcher' $Build_pdk'/media' $Build_pdk'/news' $Build_pdk'/newsletter' $Build_pdk'/pages' $Build_pdk'/customization' $Build_pdk'/sitemap' $Build_pdk'/search' $Build_pdk'/poll' $Build_pdk'/stats' $Build_pdk'/update' $Build_pdk'/UrlUpdater' $Build_pdk'/web' $Build_pdk'/wiki'
 
 	rm -rf $Build_pdk'/install/distribution.ini'
 	rm -rf $Build_pdk'/install/lang/french/distribution.php'
@@ -212,6 +230,7 @@ then
 else
 	zip -r $scriptDir/$exportDir/phpboost/phpboost_$sval.zip phpboost/ 1>/dev/null
 fi
+zip -r $scriptDir/$exportDir/phpboost/update_phpboost_to_$(echo $Branch | sed 's/\./_/g').zip phpboost_update/ 1>/dev/null
 
 cd $scriptDir
 rm -rf $Build
