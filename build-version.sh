@@ -3,15 +3,14 @@
 # Functions
 contains() { [[ $1 =~ (^|[[:space:]])"$2"($|[[:space:]]) ]] && return 0 || return 1; }
 
-usage() { echo "Usage: $0 [-b <branch>] [-s <special version for the trunk. a1 to create alpha 1 for instance>] [-t]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-b <branch>] [-s <special version for the trunk. a1 to create alpha 1 for instance>]" 1>&2; exit 1; }
 
 # Parameters
 
 branchesList="3.0 4.0 4.1"
 bflag=0
 sflag=0
-tflag=0
-while getopts b:hs:t name
+while getopts b:hs: name
   do
     case $name in
         b)
@@ -21,9 +20,6 @@ while getopts b:hs:t name
         s)
             sflag=1
             sval="$OPTARG"
-            ;;
-        t)
-            tflag=1
             ;;
         h|?)
             usage
@@ -45,7 +41,6 @@ if [ $sflag == 1 ] ;
 then
 Branch='master'
 bflag=0
-tflag=0
 localRepositoryDir='trunk';
 else
 localRepositoryDir='phpboost-'$Branch;
@@ -64,6 +59,16 @@ Original='phpboost'
 versionControlUtil='git'
 remoteRepositoryUrl='https://github.com/PHPBoost/PHPBoost.git'
 localRepositoryPath='..'
+
+previousMajorVersion=''
+branchesArray=(${branchesList// / })
+for i in "${!branchesArray[@]}"
+do
+	if [ ${branchesArray[i]} == $Branch ] && [ $i -gt 0 ] ;
+	then
+		previousMajorVersion=${branchesArray[$(($i-1))]}
+	fi
+done
 
 if [ ! -d $localRepositoryPath/$localRepositoryDir ] ;
 then
@@ -88,39 +93,32 @@ ln -s $localRepositoryPath/$localRepositoryDir $Original
 mkdir -p $buildsDir
 rm -rf $Build
 
+echo 'copying files'
+cp -r $Original/ $Build
 
 ## Build version zip
 if [ $sflag == 1 ] ;
 then
-echo $sval > $Original/kernel/.build
+	echo $sval > $Build/kernel/.build
 else
-build_version=$(cat $Original/kernel/.build)
-fi
-
-if [ $tflag == 1 ] ;
-then
-build_version=$(cat $Original/kernel/.build)
-build_version=$((${build_version} + 1))
-echo $build_version > $Original'/kernel/.build'
-# TODO : COMMIT new build_version and tag
-fi
-
-if [ $sflag != 1 ] ;
-then
+	build_version=$($versionControlUtil describe --tags | cut -d '-' -f 2 | cut -d '.' -f 3)
+	if [ "$(echo $build_version | grep "^[ [:digit:] ]*$")" ] 
+	then 
+		echo $build_version > $Build/kernel/.build
+	fi
+	
 	mkdir -p $exportDir/diff
 
 	if [ $build_version > 0 ] ;
-	then ./make-diff.sh phpboost-$Branch.$(($build_version - 1)) phpboost-$Branch.$build_version $Branch;
-	cp export/diff/* $exportDir/diff/
-	rm -rf export/diff/
+	then
+		./make-diff.sh phpboost-$Branch.$(($build_version - 1)) phpboost-$Branch.$build_version $Branch;
+		cp export/diff/* $exportDir/diff/
+		rm -rf export/diff/
 	fi
 fi
 
-echo 'copying files'
-cp -r $Original/ $Build
-
 ## Nettoyage des dossiers
-rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/HomePage' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
+rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/HomePage' $Build'/repository' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
 
 ## Suppression des fichiers .empty
 find $Build -name '.empty' -exec rm -f '{}' \;
@@ -221,6 +219,7 @@ cd $scriptDir
 
 ## Export to zip
 mkdir -p $exportDir/phpboost
+mkdir -p $exportDir/update
 cd $buildsDir/
 
 if [ $sflag != 1 ] ;
@@ -230,7 +229,7 @@ then
 else
 	zip -r $scriptDir/$exportDir/phpboost/phpboost_$sval.zip phpboost/ 1>/dev/null
 fi
-zip -r $scriptDir/$exportDir/phpboost/update_phpboost_to_$(echo $Branch | sed 's/\./_/g').zip phpboost_update/ 1>/dev/null
+zip -r $scriptDir/$exportDir/update/update_phpboost"$previousMajorVersion"_to_$(echo $Branch | sed 's/\./_/g').zip phpboost_update/ 1>/dev/null
 
 cd $scriptDir
 rm -rf $Build

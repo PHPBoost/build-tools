@@ -57,8 +57,7 @@ rm -f $scriptDir/$destination/$diffFileOptimized
 zip -r $scriptDir/$destination/$diffFileOptimized * 1>/dev/null
 
 rm -rf $scriptDir/builds/phpboost-diff
-mkdir -p $scriptDir/builds/phpboost-diff
-cp -r $tmpDir $scriptDir/builds/phpboost-diff
+cp -r $tmpDir $scriptDir/builds
 rm -rf $tmpDir
 
 cd $scriptDir/$repository
