@@ -11,20 +11,20 @@ branchesList="3.0 4.0 4.1"
 bflag=0
 sflag=0
 while getopts b:hs: name
-  do
-    case $name in
-        b)
-            bflag=1
-            bval="$OPTARG"
-            ;;
-        s)
-            sflag=1
-            sval="$OPTARG"
-            ;;
-        h|?)
-            usage
-            ;;
-    esac
+ do
+	case $name in
+		b)
+			bflag=1
+			bval="$OPTARG"
+			;;
+		s)
+			sflag=1
+			sval="$OPTARG"
+			;;
+		h|?)
+			usage
+			;;
+	esac
 done
 
 if [ $bflag == 1 ] && ! $(contains "$branchesList" "$bval") ;
