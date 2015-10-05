@@ -49,7 +49,7 @@ fi
 # Script beginning
 
 scriptDir=$(pwd)
-buildsDir='builds/'
+buildsDir='builds'
 Build=$buildsDir'/phpboost_cache'
 Build_full=$buildsDir'/phpboost'
 Build_update=$buildsDir'/phpboost_update'
@@ -147,6 +147,12 @@ echo 'optimizing kernel'
 java -jar bin/poptimizer.jar -i $Build_full/kernel -o $Build_full/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_full'/kernel'
 mv $Build_full'/optimized-kernel' $Build_full'/kernel'
+echo 'minifying js files'
+js_files_list=$(find $Build_full -iname '*.js');
+for file in $js_files_list
+do
+bin/yc $file -o $file &>/dev/null
+done
 
 rm -rf $Build_full'/install/distribution.ini'
 rm -rf $Build_full'/install/lang/french/distribution.php'
@@ -170,6 +176,12 @@ echo 'optimizing kernel'
 java -jar bin/poptimizer.jar -i $Build_update/kernel -o $Build_update/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_update'/kernel'
 mv $Build_update'/optimized-kernel' $Build_update'/kernel'
+echo 'minifying js files'
+js_files_list=$(find $Build_update -iname '*.js');
+for file in $js_files_list
+do
+bin/yc $file -o $file &>/dev/null
+done
 
 ################################ PDK pack ######################################
 
