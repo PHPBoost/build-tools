@@ -49,7 +49,7 @@ fi
 # Script beginning
 
 scriptDir=$(pwd)
-buildsDir='builds'
+buildsDir=$scriptDir'/builds'
 Build=$buildsDir'/phpboost_cache'
 Build_full=$buildsDir'/phpboost'
 Build_update=$buildsDir'/phpboost_update'
@@ -101,7 +101,9 @@ if [ $sflag == 1 ] ;
 then
 	echo $sval > $Build/kernel/.build
 else
+	cd $localRepositoryPath/$localRepositoryDir;
 	build_version=$($versionControlUtil describe --tags | cut -d '-' -f 2 | cut -d '.' -f 3)
+	cd $scriptDir;
 	if [ "$(echo $build_version | grep "^[ [:digit:] ]*$")" ] 
 	then 
 		echo $build_version > $Build/kernel/.build
@@ -127,7 +129,8 @@ find $Build -name '.empty' -exec rm -f '{}' \;
 touch $Build/.htaccess
 
 ## CHMOD
-chmod -R 777 $Build'/cache' $Build'/upload' $Build'/templates' $Build'/lang' $Build'/images' $Build'/'
+chmod -R 777 $Build'/cache' $Build'/upload' $Build'/templates' $Build'/lang' $Build'/images' $Build'/stats/cache' $Build'/install' $Build'/update'
+chmod 777 $Build'/'
 if [ $Branch == '3.0' ] || [ $Branch == '4.0' ] || [ $Branch == '4.1' ] ;
 then chmod -R 777 $Build'/menus'
 fi
