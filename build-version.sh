@@ -120,7 +120,7 @@ else
 fi
 
 ## Nettoyage des dossiers
-rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/HomePage' $Build'/repository' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
+rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $Build'/.htaccess' $Build'/test' $Build'/HomePage' $Build'/PHPBoostOfficial' $Build'/repository' $Build'/server_migration.php' $Build'/todo.txt' $Build'/changelog.txt' $Build'/templates/phpboost' $Build'/README.md'
 
 ## Suppression des fichiers .empty
 find $Build -name '.empty' -exec rm -f '{}' \;
