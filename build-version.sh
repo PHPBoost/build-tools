@@ -222,7 +222,7 @@ then
 	for folder in $(ls); 
 	do 
 		if [ -e $folder/config.ini ] ; 
-		then zip -r $scriptDir/$exportDir/modules/$folder.zip $folder 1>/dev/null;
+			then zip -r $scriptDir/$exportDir/modules/$folder.zip $folder 1>/dev/null;
 		fi
 	done
 fi
@@ -238,13 +238,19 @@ mkdir -p $exportDir/update
 cd $buildsDir/
 
 if [ $sflag != 1 ] ;
-then 
+then
+	rm -rf $scriptDir/$exportDir/phpboost/phpboost.zip
 	zip -r $scriptDir/$exportDir/phpboost/phpboost.zip phpboost/ 1>/dev/null
+	rm -rf $scriptDir/$exportDir/phpboost/phpboost_pdk.zip
 	zip -r $scriptDir/$exportDir/phpboost/phpboost_pdk.zip phpboost_pdk/ 1>/dev/null
 else
+	rm -rf $scriptDir/$exportDir/phpboost/phpboost_$sval.zip
 	zip -r $scriptDir/$exportDir/phpboost/phpboost_$sval.zip phpboost/ 1>/dev/null
 fi
-zip -r $scriptDir/$exportDir/update/update_phpboost"$previousMajorVersion"_to_$(echo $Branch | sed 's/\./_/g').zip phpboost_update/ 1>/dev/null
+
+UpdateZipName='update_phpboost'$previousMajorVersion'_to_'$(echo $Branch | sed 's/\./_/g')'.zip'
+rm -rf $scriptDir/$exportDir/update/UpdateZipName
+zip -r $scriptDir/$exportDir/update/UpdateZipName phpboost_update/ 1>/dev/null
 
 cd $scriptDir
 rm -rf $Build
