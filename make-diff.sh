@@ -37,7 +37,7 @@ echo "building non-optimized patch to $tmpDir/$diffFile"
 for file in `echo $changed_files`
 do
 	if [ -f $file ]; then
-		if [[ ! $file =~ ^(install|update|UrlUpdater|bugtracker|templates/phpboost|.gitignore|.git|.settings|.project|test|sandbox|HomePage|repository|server_migration.php|todo.txt|changelog.txt|README.md)/.+ ]]; then
+		if [[ ! $file =~ ^(install|update|UrlUpdater|bugtracker|templates/phpboost|.gitignore|.git|.settings|.project|test|sandbox|HomePage|PHPBoostOfficial|repository|server_migration.php|todo.txt|changelog.txt|README.md)/.+ ]]; then
 			zip $tmpDir/$diffFile $file 1>/dev/null
 		fi
 	fi
