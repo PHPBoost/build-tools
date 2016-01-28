@@ -12,7 +12,7 @@ versionControlUtil='git'
 
 if [ -n $3 ] ;
 then Branch=$3;
-else Branch='4.1';
+else Branch='5.0';
 fi
 
 mkdir -p $destination
