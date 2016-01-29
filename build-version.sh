@@ -7,7 +7,7 @@ usage() { echo "Usage: $0 [-b <branch>] [-s <special version for the trunk. a1 t
 
 # Parameters
 
-branchesList="3.0 4.0 4.1"
+branchesList="3.0 4.0 4.1 5.0"
 bflag=0
 sflag=0
 while getopts b:hs: name
@@ -34,7 +34,7 @@ fi
 
 if [ $bflag == 1 ] ;
 then Branch=$bval;
-else Branch='4.1';
+else Branch='5.0';
 fi
 
 if [ $sflag == 1 ] ;
