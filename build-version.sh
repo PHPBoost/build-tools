@@ -70,6 +70,11 @@ do
 	fi
 done
 
+if [ $previousMajorVersion -lt 0 ] ;
+then
+	previousMajorVersion=0
+fi
+
 if [ ! -d $localRepositoryPath/$localRepositoryDir ] ;
 then
 	echo 'cloning repository'
