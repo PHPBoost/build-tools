@@ -248,7 +248,7 @@ else
 	zip -r $scriptDir/$exportDir/phpboost/phpboost_$sval.zip phpboost/ 1>/dev/null
 fi
 
-UpdateZipName='update_phpboost'$previousMajorVersion'_to_'$(echo $Branch | sed 's/\./_/g')'.zip'
+UpdateZipName='update_phpboost'$(echo $previousMajorVersion | sed 's/\./_/g')'_to_'$(echo $Branch | sed 's/\./_/g')'.zip'
 rm -rf $scriptDir/$exportDir/update/$UpdateZipName
 zip -r $scriptDir/$exportDir/update/$UpdateZipName phpboost_update/ 1>/dev/null
 
