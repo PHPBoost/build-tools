@@ -70,11 +70,6 @@ do
 	fi
 done
 
-if [ $previousMajorVersion -lt 0 ] ;
-then
-	previousMajorVersion=0
-fi
-
 if [ ! -d $localRepositoryPath/$localRepositoryDir ] ;
 then
 	echo 'cloning repository'
@@ -116,7 +111,7 @@ else
 	
 	mkdir -p $exportDir/diff
 
-	if [ $build_version > 0 ] ;
+	if [ $build_version -gt 0 ] ;
 	then
 		./make-diff.sh phpboost-$Branch.$(($build_version - 1)) phpboost-$Branch.$build_version $Branch;
 		cp export/diff/* $exportDir/diff/
