@@ -49,7 +49,7 @@ cp $tmpDir/$diffFile $scriptDir/$destination/$diffFile
 echo "optimizing kernel patch"
 cd $tmpDir && unzip $diffFile 1>/dev/null && rm -f $diffFile && mkdir kernel-optimized
 
-java -jar $scriptDir/bin/poptimizer.jar --ics=iso-8859-1 --ocs=iso-8859-1 -i kernel -o kernel-optimized 1>/dev/null
+java -jar $scriptDir/bin/poptimizer.jar -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php --ics=iso-8859-1 --ocs=iso-8859-1 -i kernel -o kernel-optimized 1>/dev/null
 rm -rf kernel && mv kernel-optimized kernel
 
 rm -f .gitignore
