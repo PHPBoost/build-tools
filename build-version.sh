@@ -5,9 +5,23 @@ contains() { [[ $1 =~ (^|[[:space:]])"$2"($|[[:space:]]) ]] && return 0 || retur
 
 usage() { echo "Usage: $0 [-b <branch>] [-s <special version for the trunk. a1 to create alpha 1 for instance>]" 1>&2; exit 1; }
 
+get_branches_list() {
+	scriptDir=$(pwd)
+	if [ -d $scriptDir/../trunk ] ;
+	then
+		cd $scriptDir/../trunk
+		git pull 1>&2>/dev/null
+		branchesList=$(git branch -r | grep -v 'HEAD' | grep -v 'master' | grep -v 'default' | grep -v 'standby$' | cut -d '/' -f 2 | xargs)
+		cd $scriptDir
+	else
+		branchesList="5.0"
+	fi
+	echo $branchesList
+}
+
 # Parameters
 
-branchesList="3.0 4.0 4.1 5.0"
+branchesList=$(get_branches_list)
 bflag=0
 sflag=0
 while getopts b:hs: name
@@ -34,7 +48,7 @@ fi
 
 if [ $bflag == 1 ] ;
 then Branch=$bval;
-else Branch='5.0';
+else Branch=$(echo $branchesList  | awk '{print $NF}');
 fi
 
 if [ $sflag == 1 ] ;
@@ -56,7 +70,6 @@ Build_update=$buildsDir'/phpboost_update'
 Build_pdk=$buildsDir'/phpboost_pdk'
 exportDir='export'/$Branch
 Original='phpboost'
-versionControlUtil='git'
 remoteRepositoryUrl='https://github.com/PHPBoost/PHPBoost.git'
 localRepositoryPath='..'
 
@@ -75,12 +88,12 @@ then
 	echo 'cloning repository'
 	cd $localRepositoryPath;
 	mkdir $localRepositoryDir;
-	$versionControlUtil clone --branch $Branch $remoteRepositoryUrl $localRepositoryDir
+	git clone --branch $Branch $remoteRepositoryUrl $localRepositoryDir 1>&2>/dev/null
 	cd $scriptDir;
 else
 	echo 'updating repository'
 	cd $localRepositoryPath/$localRepositoryDir;
-	$versionControlUtil pull
+	git pull 1>&2>/dev/null
 	cd $scriptDir;
 fi
 
@@ -102,7 +115,7 @@ then
 	echo $sval > $Build/kernel/.build
 else
 	cd $localRepositoryPath/$localRepositoryDir;
-	build_version=$($versionControlUtil describe --tags | cut -d '-' -f 2 | cut -d '.' -f 3)
+	build_version=$(git describe --tags | cut -d '-' -f 2 | cut -d '.' -f 3)
 	cd $scriptDir;
 	if [ "$(echo $build_version | grep "^[ [:digit:] ]*$")" ] 
 	then 
