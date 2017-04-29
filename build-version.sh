@@ -63,7 +63,7 @@ fi
 # Script beginning
 
 scriptDir=$(pwd)
-buildsDir=$scriptDir'/builds'
+buildsDir='builds'
 Build=$buildsDir'/phpboost_cache'
 Build_full=$buildsDir'/phpboost'
 Build_update=$buildsDir'/phpboost_update'
@@ -171,6 +171,7 @@ fi
 echo 'minifying js files'
 for file in $(find $Build -iname '*.js' | grep -v '.min.js')
 do
+	echo "curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file.min.js"
 	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file.min.js
 	mv $file.min.js $file
 done
