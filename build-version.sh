@@ -167,7 +167,7 @@ echo 'minifying js files'
 js_files_list=$(find $Build_full -iname '*.js');
 for file in $js_files_list
 do
-bin/yc $file -o $file &>/dev/null
+	wget --post-data="input=`cat $file`" --output-document=$file https://javascript-minifier.com/raw &>/dev/null
 done
 
 rm -rf $Build_full'/install/distribution.ini'
@@ -196,7 +196,7 @@ echo 'minifying js files'
 js_files_list=$(find $Build_update -iname '*.js');
 for file in $js_files_list
 do
-bin/yc $file -o $file &>/dev/null
+	wget --post-data="input=`cat $file`" --output-document=$file https://javascript-minifier.com/raw &>/dev/null
 done
 
 ################################ PDK pack ######################################
