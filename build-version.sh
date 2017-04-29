@@ -168,9 +168,7 @@ fi
 
 
 ## Minify js files
-echo 'minifying js files'
-curl -X POST -s --data-urlencode 'input@$Build/kernel/lib/js/global.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/global.min.js
-mv $Build/kernel/lib/js/global.min.js $Build/kernel/lib/js/global.js
+# echo 'minifying js files'
 # for file in $(find $Build -iname '*.js' | grep -v '.min.js')
 # do
 	# curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file.min.js
