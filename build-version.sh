@@ -168,11 +168,11 @@ fi
 
 
 ## Minify js files
-echo 'minifying js files'
-for file in $(find $Build -iname '*.js' | grep -v '.min.js')
-do
-	curl -X POST -s --data-urlencode input@$file https://javascript-minifier.com/raw > $file
-done
+# echo 'minifying js files'
+# for file in $(find $Build -iname '*.js' | grep -v '.min.js')
+# do
+	# curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file
+# done
 
 ## Optimize kernel
 echo 'optimizing kernel'
