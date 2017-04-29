@@ -61,7 +61,7 @@ then
 fi
 
 echo 'minifying js files'
-for file in $(find . -iname '*.js')
+for file in $(find . -iname '*.js' | grep -v '.min.js')
 do
 	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file  &>/dev/null
 done

@@ -169,11 +169,17 @@ fi
 
 ## Minify js files
 echo 'minifying js files'
-for file in $(find $Build -iname '*.js')
+for file in $(find $Build -iname '*.js' | grep -v '.min.js')
 do
-	echo $file
+	echo "curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file"
 	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file
 done
+
+## Optimize kernel
+echo 'optimizing kernel'
+java -jar bin/poptimizer.jar -i $Build/kernel -o $Build/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
+rm -rf $Build'/kernel'
+mv $Build'/optimized-kernel' $Build'/kernel'
 
 ################################ Full pack ######################################
 
@@ -185,10 +191,6 @@ rm -rf $Build_full'/doc'
 rm -rf $Build_full'/sandbox'
 rm -rf $Build_full'/update'
 rm -rf $Build_full'/UrlUpdater'
-echo 'optimizing kernel'
-java -jar bin/poptimizer.jar -i $Build_full/kernel -o $Build_full/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
-rm -rf $Build_full'/kernel'
-mv $Build_full'/optimized-kernel' $Build_full'/kernel'
 
 rm -rf $Build_full'/install/distribution.ini'
 rm -rf $Build_full'/install/lang/french/distribution.php'
@@ -208,10 +210,6 @@ rm -rf $Build_update'/doc'
 rm -rf $Build_update'/install'
 rm -rf $Build_update'/sandbox'
 rm -rf $Build_update'/.htaccess'
-echo 'optimizing kernel'
-java -jar bin/poptimizer.jar -i $Build_update/kernel -o $Build_update/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
-rm -rf $Build_update'/kernel'
-mv $Build_update'/optimized-kernel' $Build_update'/kernel'
 
 ## Documentation
 #mkdir -p $Build_pdk'/doc/'$Branch
