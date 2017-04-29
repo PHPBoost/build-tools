@@ -140,7 +140,7 @@ find $Build -name '.empty' -exec rm -f '{}' \;
 
 ## Minify js files
 echo 'minifying js files'
-js_files_list=$(find $Build_update -iname '*.js');
+js_files_list=$(find $Build -iname '*.js');
 for file in $js_files_list
 do
 	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file  &>/dev/null
