@@ -138,14 +138,6 @@ rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $B
 ## Suppression des fichiers .empty
 find $Build -name '.empty' -exec rm -f '{}' \;
 
-## Minify js files
-echo 'minifying js files'
-js_files_list=$(find $Build -iname '*.js');
-for file in $js_files_list
-do
-	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file  &>/dev/null
-done
-
 ## Htaccess
 touch $Build/.htaccess
 
@@ -156,6 +148,32 @@ if [ $Branch == '3.0' ] || [ $Branch == '4.0' ] || [ $Branch == '4.1' ] ;
 then chmod -R 777 $Build'/menus'
 fi
 
+################################ PDK pack ######################################
+
+if [ $sflag != 1 ] ;
+then
+	echo 'building PDK pack'
+	rm -rf $Build_pdk
+	cp -r $Build/ $Build_pdk
+	rm -rf $Build_pdk'/articles' $Build_pdk'/calendar' $Build_pdk'/contact' $Build_pdk'/download' $Build_pdk'/faq' $Build_pdk'/forum' $Build_pdk'/gallery' $Build_pdk'/online' $Build_pdk'/shoutbox' $Build_pdk'/guestbook' $Build_pdk'/ThemesSwitcher' $Build_pdk'/LangsSwitcher' $Build_pdk'/media' $Build_pdk'/news' $Build_pdk'/newsletter' $Build_pdk'/pages' $Build_pdk'/customization' $Build_pdk'/sitemap' $Build_pdk'/search' $Build_pdk'/poll' $Build_pdk'/stats' $Build_pdk'/update' $Build_pdk'/UrlUpdater' $Build_pdk'/web' $Build_pdk'/wiki'
+
+	rm -rf $Build_pdk'/install/distribution.ini'
+	rm -rf $Build_pdk'/install/lang/french/distribution.php'
+	rm -rf $Build_pdk'/install/lang/english/distribution.php'
+	mv $Build_pdk'/install/distribution/distribution_pdk.ini' $Build_pdk'/install/distribution.ini'
+	mv $Build_pdk'/install/distribution/distribution_pdk_french.php' $Build_pdk'/install/lang/french/distribution.php'
+	mv $Build_pdk'/install/distribution/distribution_pdk_english.php' $Build_pdk'/install/lang/english/distribution.php'
+	rm -rf $Build_pdk'/install/distribution/'
+fi
+
+
+## Minify js files
+echo 'minifying js files'
+for file in $(find $Build -iname '*.js')
+do
+	echo $file
+	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file
+done
 
 ################################ Full pack ######################################
 
@@ -194,24 +212,6 @@ echo 'optimizing kernel'
 java -jar bin/poptimizer.jar -i $Build_update/kernel -o $Build_update/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_update'/kernel'
 mv $Build_update'/optimized-kernel' $Build_update'/kernel'
-
-################################ PDK pack ######################################
-
-if [ $sflag != 1 ] ;
-then
-	echo 'building PDK pack'
-	rm -rf $Build_pdk
-	cp -r $Build/ $Build_pdk
-	rm -rf $Build_pdk'/articles' $Build_pdk'/calendar' $Build_pdk'/contact' $Build_pdk'/download' $Build_pdk'/faq' $Build_pdk'/forum' $Build_pdk'/gallery' $Build_pdk'/online' $Build_pdk'/shoutbox' $Build_pdk'/guestbook' $Build_pdk'/ThemesSwitcher' $Build_pdk'/LangsSwitcher' $Build_pdk'/media' $Build_pdk'/news' $Build_pdk'/newsletter' $Build_pdk'/pages' $Build_pdk'/customization' $Build_pdk'/sitemap' $Build_pdk'/search' $Build_pdk'/poll' $Build_pdk'/stats' $Build_pdk'/update' $Build_pdk'/UrlUpdater' $Build_pdk'/web' $Build_pdk'/wiki'
-
-	rm -rf $Build_pdk'/install/distribution.ini'
-	rm -rf $Build_pdk'/install/lang/french/distribution.php'
-	rm -rf $Build_pdk'/install/lang/english/distribution.php'
-	mv $Build_pdk'/install/distribution/distribution_pdk.ini' $Build_pdk'/install/distribution.ini'
-	mv $Build_pdk'/install/distribution/distribution_pdk_french.php' $Build_pdk'/install/lang/french/distribution.php'
-	mv $Build_pdk'/install/distribution/distribution_pdk_english.php' $Build_pdk'/install/lang/english/distribution.php'
-	rm -rf $Build_pdk'/install/distribution/'
-fi
 
 ## Documentation
 #mkdir -p $Build_pdk'/doc/'$Branch
