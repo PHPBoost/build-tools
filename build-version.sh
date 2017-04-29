@@ -138,6 +138,14 @@ rm -rf $Build'/.gitignore' $Build'/.git' $Build'/.settings' $Build'/.project' $B
 ## Suppression des fichiers .empty
 find $Build -name '.empty' -exec rm -f '{}' \;
 
+## Minify js files
+echo 'minifying js files'
+js_files_list=$(find $Build_update -iname '*.js');
+for file in $js_files_list
+do
+	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file  &>/dev/null
+done
+
 ## Htaccess
 touch $Build/.htaccess
 
@@ -163,12 +171,6 @@ echo 'optimizing kernel'
 java -jar bin/poptimizer.jar -i $Build_full/kernel -o $Build_full/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_full'/kernel'
 mv $Build_full'/optimized-kernel' $Build_full'/kernel'
-echo 'minifying js files'
-js_files_list=$(find $Build_full -iname '*.js');
-for file in $js_files_list
-do
-	wget --post-data="input=`cat $file`" --output-document=$file https://javascript-minifier.com/raw &>/dev/null
-done
 
 rm -rf $Build_full'/install/distribution.ini'
 rm -rf $Build_full'/install/lang/french/distribution.php'
@@ -192,12 +194,6 @@ echo 'optimizing kernel'
 java -jar bin/poptimizer.jar -i $Build_update/kernel -o $Build_update/optimized-kernel -e lib/ lib/php/geshi/ lib/php/mathpublisher/ framework/util/Url.class.php framework/io/Upload.class.php -ics ISO-8859-1 -ocs ISO-8859-1 1>/dev/null
 rm -rf $Build_update'/kernel'
 mv $Build_update'/optimized-kernel' $Build_update'/kernel'
-echo 'minifying js files'
-js_files_list=$(find $Build_update -iname '*.js');
-for file in $js_files_list
-do
-	wget --post-data="input=`cat $file`" --output-document=$file https://javascript-minifier.com/raw &>/dev/null
-done
 
 ################################ PDK pack ######################################
 

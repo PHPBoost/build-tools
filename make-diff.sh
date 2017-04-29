@@ -64,7 +64,7 @@ echo 'minifying js files'
 js_files_list=$(find . -iname '*.js');
 for file in $js_files_list
 do
-	wget --post-data="input=`cat $file`" --output-document=$file https://javascript-minifier.com/raw &>/dev/null
+	curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file  &>/dev/null
 done
 
 echo "building optimized patch to $scriptDir/$destination/$diffFileOptimized"
