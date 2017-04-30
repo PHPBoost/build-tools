@@ -61,10 +61,20 @@ then
 fi
 
 # echo 'minifying js files'
-# for file in $(find . -iname '*.js' | grep -v '.min.js')
-# do
-	# curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file
-# done
+curl -X POST -s --data-urlencode 'input@pages/templates/js/pages.js' https://javascript-minifier.com/raw > pages/templates/js/pages.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@wiki/templates/js/wiki.js' https://javascript-minifier.com/raw > wiki/templates/js/wiki.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@BBCode/templates/js/bbcode.js' https://javascript-minifier.com/raw > BBCode/templates/js/bbcode.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/global.js' https://javascript-minifier.com/raw > kernel/lib/js/global.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/jquery/jquery.js' https://javascript-minifier.com/raw > kernel/lib/js/jquery/jquery.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/lightcase/lightcase.js' https://javascript-minifier.com/raw > kernel/lib/js/lightcase/lightcase.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/phpboost/notation.js' https://javascript-minifier.com/raw > kernel/lib/js/phpboost/notation.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/phpboost/form/validator.js' https://javascript-minifier.com/raw > kernel/lib/js/phpboost/form/validator.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/phpboost/form/form.js' https://javascript-minifier.com/raw > kernel/lib/js/phpboost/form/form.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js' https://javascript-minifier.com/raw > kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/js/phpboost/upload.js' https://javascript-minifier.com/raw > kernel/lib/js/phpboost/upload.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@kernel/lib/flash/flowplayer/flowplayer.js' https://javascript-minifier.com/raw > kernel/lib/flash/flowplayer/flowplayer.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@GoogleMaps/templates/js/jquery.geocomplete.js' https://javascript-minifier.com/raw > GoogleMaps/templates/js/jquery.geocomplete.js 1>&2>/dev/null
+curl -X POST -s --data-urlencode 'input@user/templates/js/cookiebar.js' https://javascript-minifier.com/raw > user/templates/js/cookiebar.js 1>&2>/dev/null
 
 echo "building optimized patch to $scriptDir/$destination/$diffFileOptimized"
 rm -f $scriptDir/$destination/$diffFileOptimized
