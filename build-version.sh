@@ -166,14 +166,22 @@ then
 	rm -rf $Build_pdk'/install/distribution/'
 fi
 
-
 ## Minify js files
-# echo 'minifying js files'
-# for file in $(find $Build -iname '*.js' | grep -v '.min.js')
-# do
-	# curl -X POST -s --data-urlencode 'input@$file' https://javascript-minifier.com/raw > $file.min.js
-	# mv $file.min.js $file
-# done
+echo 'minifying js files'
+curl -X POST -s --data-urlencode 'input@phpboost/pages/templates/js/pages.js' https://javascript-minifier.com/raw > $Build/pages/templates/js/pages.js
+curl -X POST -s --data-urlencode 'input@phpboost/wiki/templates/js/wiki.js' https://javascript-minifier.com/raw > $Build/wiki/templates/js/wiki.js
+curl -X POST -s --data-urlencode 'input@phpboost/BBCode/templates/js/bbcode.js' https://javascript-minifier.com/raw > $Build/BBCode/templates/js/bbcode.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/global.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/global.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/jquery/jquery.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/jquery/jquery.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/lightcase/lightcase.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/lightcase/lightcase.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/notation.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/notation.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/form/validator.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/form/validator.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/form/form.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/form/form.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/upload.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/upload.js
+curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/flash/flowplayer/flowplayer.js' https://javascript-minifier.com/raw > $Build/kernel/lib/flash/flowplayer/flowplayer.js
+curl -X POST -s --data-urlencode 'input@phpboost/GoogleMaps/templates/js/jquery.geocomplete.js' https://javascript-minifier.com/raw > $Build/GoogleMaps/templates/js/jquery.geocomplete.js
+curl -X POST -s --data-urlencode 'input@phpboost/user/templates/js/cookiebar.js' https://javascript-minifier.com/raw > $Build/user/templates/js/cookiebar.js
 
 ## Optimize kernel
 echo 'optimizing kernel'
