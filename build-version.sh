@@ -168,20 +168,20 @@ fi
 
 ## Minify js files
 echo 'minifying js files'
-curl -X POST -s --data-urlencode 'input@phpboost/pages/templates/js/pages.js' https://javascript-minifier.com/raw > $Build/pages/templates/js/pages.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/wiki/templates/js/wiki.js' https://javascript-minifier.com/raw > $Build/wiki/templates/js/wiki.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/BBCode/templates/js/bbcode.js' https://javascript-minifier.com/raw > $Build/BBCode/templates/js/bbcode.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/global.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/global.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/jquery/jquery.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/jquery/jquery.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/lightcase/lightcase.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/lightcase/lightcase.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/notation.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/notation.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/form/validator.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/form/validator.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/form/form.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/form/form.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/upload.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/upload.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/flash/flowplayer/flowplayer.js' https://javascript-minifier.com/raw > $Build/kernel/lib/flash/flowplayer/flowplayer.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/GoogleMaps/templates/js/jquery.geocomplete.js' https://javascript-minifier.com/raw > $Build/GoogleMaps/templates/js/jquery.geocomplete.js 1>&2>/dev/null
-curl -X POST -s --data-urlencode 'input@phpboost/user/templates/js/cookiebar.js' https://javascript-minifier.com/raw > $Build/user/templates/js/cookiebar.js 1>&2>/dev/null
+if [ -f phpboost/pages/templates/js/pages.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/pages/templates/js/pages.js' https://javascript-minifier.com/raw > $Build/pages/templates/js/pages.js ; fi
+if [ -f phpboost/wiki/templates/js/wiki.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/wiki/templates/js/wiki.js' https://javascript-minifier.com/raw > $Build/wiki/templates/js/wiki.js ; fi
+if [ -f phpboost/BBCode/templates/js/bbcode.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/BBCode/templates/js/bbcode.js' https://javascript-minifier.com/raw > $Build/BBCode/templates/js/bbcode.js ; fi
+if [ -f phpboost/kernel/lib/js/global.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/global.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/global.js ; fi
+if [ -f phpboost/kernel/lib/js/jquery/jquery.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/jquery/jquery.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/jquery/jquery.js ; fi
+if [ -f phpboost/kernel/lib/js/lightcase/lightcase.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/lightcase/lightcase.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/lightcase/lightcase.js ; fi
+if [ -f phpboost/kernel/lib/js/phpboost/notation.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/notation.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/notation.js ; fi
+if [ -f phpboost/kernel/lib/js/phpboost/form/validator.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/form/validator.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/form/validator.js ; fi
+if [ -f phpboost/kernel/lib/js/phpboost/form/form.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/form/form.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/form/form.js ; fi
+if [ -f phpboost/kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/UrlSerializedParameterEncoder.js ; fi
+if [ -f phpboost/kernel/lib/js/phpboost/upload.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/js/phpboost/upload.js' https://javascript-minifier.com/raw > $Build/kernel/lib/js/phpboost/upload.js ; fi
+if [ -f phpboost/kernel/lib/flash/flowplayer/flowplayer.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/kernel/lib/flash/flowplayer/flowplayer.js' https://javascript-minifier.com/raw > $Build/kernel/lib/flash/flowplayer/flowplayer.js ; fi
+if [ -f phpboost/GoogleMaps/templates/js/jquery.geocomplete.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/GoogleMaps/templates/js/jquery.geocomplete.js' https://javascript-minifier.com/raw > $Build/GoogleMaps/templates/js/jquery.geocomplete.js ; fi
+if [ -f phpboost/user/templates/js/cookiebar.js ]; then curl -X POST -s --data-urlencode 'input@phpboost/user/templates/js/cookiebar.js' https://javascript-minifier.com/raw > $Build/user/templates/js/cookiebar.js ; fi
 
 ## Optimize kernel
 echo 'optimizing kernel'
